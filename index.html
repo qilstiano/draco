@@ -4,46 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>龙编辑</title>
-
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/images/apple-touch-icon.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/images/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/images/favicon-16x16.png"
-    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
     <link rel="manifest" href="/site.webmanifest" />
     <link href="/textarea-code-style.css" rel="stylesheet" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              字體: ["LXGW WenKai Mono TC", "SimSun"], eb: ["EB Garamond, Arial"]
-            },
-          },
-        },
-      };
-    </script>
   </head>
 
   <body class="bg-[#1a1a1a] font-字體 flex flex-col items-center justify-center min-h-screen">
@@ -65,7 +35,7 @@
     <!-- Top Center Title -->
      <div class="items-start flex flex-row align-middle pt-4">
       <div class="text-xl text-center text-white">龙编辑</div>
-      <div class="font-eb text-xs text-center text-white">Draco</div>
+      <div class="font-戊乙 text-xs text-center text-white">Draco</div>
      </div>
 
     <button id="darkModeToggle" 
@@ -77,7 +47,7 @@
     </button>
 
     <div 
-      class="flex flex-col justify-center relative rounded-md w-[85vw] h-[60vh] text-md m-5 break-words whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
+      class="flex flex-col justify-center relative leading-[30px] rounded-md w-[85vw] h-[60vh] text-md m-5 break-words whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
       style="writing-mode: vertical-rl; text-orientation: upright; box-shadow: 0 0 30px 20px rgba(124, 124, 124, 0.2);"
     >
 
@@ -85,9 +55,11 @@
         placeholder="始入。"
         id="程式碼框"
         spellcheck="false"
-        class="absolute top-0 left-0 w-[100%] h-[100%] z-10 font-字體 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
+        class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-10 font-字體 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
       ></textarea><code
-          class="absolute top-0 left-0 w-[100%] h-[100%] z-0 font-字體 text-white resize-none language-wenyan overflow-x-scroll" id="尤甚"></code>
+          class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-0 font-字體 text-white resize-none language-wenyan overflow-x-scroll"
+          id="尤甚"
+          style="background-image: linear-gradient(to left, #8b4513 1px, transparent 1px); background-size:30px; background-position: right; background-origin: content-box;"></code>
     </div>
 
     <div class="flex flex-row justify-center">
@@ -112,13 +84,29 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
     </div>
 
-    <div class="my-6 text-white text-[8px] font-eb items-start flex flex-col justify-center align-middle">
+    <div class="my-6 text-white text-[8px] font-戊乙 items-start flex flex-col justify-center align-middle">
       龍編輯，以新加坡立大學學生發文言譯為翻雲。 <br>
       Draco is a 30SCE sai kang warriors-built compiler made for wenyan-lang.
     </div>
+    <script>
+  
+      function synchronizeGridWithScroll() {
+        const textarea = document.getElementById('尤甚');
+        
+        textarea.addEventListener('scroll', () => {
+          const scrollLeft = textarea.scrollLeft;
+          textarea.style.backgroundPosition = `${-scrollLeft}px 0px`;
+        });
+      }
+  
+      window.addEventListener('load', () => {
+        synchronizeGridWithScroll();
+      });
+    </script>
     
     <script src='https://unpkg.com/@wenyan/runtime'></script>
     <script src='https://unpkg.com/@wenyan/core/index.min.js'></script>
+    <script type="application/wenyan" src="./順風.wy"></script>
     <script type="application/wenyan" src="./译之具.wy"></script>
     <script type="application/wenyan" src="./素同步.wy"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
@@ -130,10 +118,8 @@
     <script>
       document.addEventListener('keydown', e => {
             if (e.ctrlKey && e.key === 'a') {
-            //e.preventDefault(); // Prevent the Save dialog to
-            // Place your code here
-            console.log('CTRL + A');
-            flashImage();
+              console.log('CTRL + A');
+              flashImage();
             }
         });
 
