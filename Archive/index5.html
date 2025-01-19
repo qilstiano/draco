@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>龙编辑</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link href="/textarea-code-style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              字体: ["LXGW WenKai Mono TC", "SimSun"], eb: ["EB Garamond, Arial"]
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-[#1a1a1a] font-字体 flex flex-col items-center justify-center min-h-screen">
+
+    <div 
+    class="fixed inset-0 -z-10 animate-gradient"
+    style="
+    background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), 
+              radial-gradient(ellipse at 70% 60%, #ff5500 0%, rgba(255, 215, 0, 0) 90%), 
+              radial-gradient(ellipse at 30% 30%, #ff4040 0%, rgba(255, 64, 64, 0) 60%), 
+              radial-gradient(ellipse at bottom left, #8B0000 0%, rgba(139, 0, 0, 0) 70%), 
+              linear-gradient(135deg, rgba(255, 215, 0, 0) 0%, rgba(139, 0, 0, 0) 75%, #B22222 100%);
+    background-blend-mode: overlay, luminosity, multiply, saturation, color-dodge, lighten;
+    filter: blur(75px);
+    animation: gradientMove 15s ease-in-out infinite;
+    "
+  ></div>
+    <!-- Top Center Title -->
+     <div class="items-start flex flex-row align-middle pt-4">
+      <div class="text-xl text-center text-white">龙编辑</div>
+      <div class="font-eb text-xs text-center text-white">Draco</div>
+     </div>
+
+     
+     <div 
+     class="flex flex-col justify-center relative rounded-md w-[85vw] h-[60vh] m-5 bg-[#1a1a1a] break-words whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
+     style="writing-mode: vertical-rl; text-orientation: upright; box-shadow: 0 0 30px 20px rgba(124, 124, 124, 0.2);"
+   >
+     <!-- Horizontal Gutter (Number Gutter) -->
+     <div 
+     id="horizontal-gutter" 
+     class="absolute w-[100%] h-[30px] flex flex-row justify-start items-center gap-2 overflow-hidden text-white bg-[#2a2a2a] text-sm"
+     style="top: 0; left: 0; padding-left: 10px;"
+      ></div>
+     
+     <!-- Text Area -->
+     <textarea
+       placeholder="始入。"
+       id="程式碼框"
+       spellcheck="false"
+       class="absolute top-[30px] left-0 w-[100%] h-[calc(100%-30px)] z-10 font-字体 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
+     ></textarea>
+   
+     <!-- Code Mirror -->
+     <code
+       class="absolute top-[30px] left-0 w-[100%] h-[calc(100%-30px)] z-0 font-字体 text-white resize-none language-wenyan overflow-x-scroll" 
+       id="尤甚"
+     ></code>
+   </div>
+
+
+    <div class="flex flex-row justify-center">
+      <button
+        id="編鍵"
+        class="self-start py-2 px-6 bg-[#a0522d] text-white rounded-md text-lg cursor-pointer hover:bg-[#8b4513] mt-2"
+      >
+        編譯。
+      </button>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const textarea = document.getElementById('程式碼框');
+          const displayArea = document.getElementById('尤甚');
+          const text = "吾有一言。曰「「問天地好！」」。書之。";
+          let index = 0;
+      
+          function typeText() {
+              if (index < text.length) {
+                  textarea.value += text.charAt(index);
+                  displayArea.textContent = textarea.value;
+                  index++;
+                  setTimeout(typeText, 100); // Adjust speed by changing the timeout value
+              }
+              一新();
+          }
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && e.key === 'a') {
+            // Prevent the Save dialog to open
+            e.preventDefault();
+            // Place your code here
+            console.log('CTRL + A');
+            }
+        });
+      
+          setTimeout(() => {
+              textarea.value = '';
+              displayArea.textContent = '';
+              typeText();
+          }, 1000); // Delay before starting
+      });
+      </script>
+
+    <!-- Translation Section Below Button -->
+    <div class="w-full max-w-3xl p-6 bg-[#000000] text-white rounded-lg font-字体 mt-5">
+      <pre><code id="翻译" class="language-js font-字体">输官出。</code> </pre>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+
+    <div class="mt-6 text-white text-xs font-eb items-center flex flex-col justify-center">
+      Draco 是一款由新加坡国立大学学生开发的编译器，专为文言文编程语言 (wenyan-lang) 设计. <br>
+      Draco is an NUS student-built compiler made for wenyan-lang.
+    </div>
+    
+    <script src='https://unpkg.com/@wenyan/runtime'></script>
+    <script src='https://unpkg.com/@wenyan/core/index.min.js'></script>
+    <script type="application/wenyan" src="./译之具.wy"></script>
+    <script type="application/wenyan" src="./素同步.wy"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wenyan-lang/highlight/wenyan.prism.js"></script>
+    <script src="blah3.js" type="text/javascript"></script>
+  </body>
+</html>

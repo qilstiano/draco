@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>龙编辑</title>
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link href="/textarea-code-style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              字體: ["LXGW WenKai Mono TC", "SimSun"], eb: ["EB Garamond, Arial"]
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-[#1a1a1a] font-字體 flex flex-col items-center justify-center min-h-screen">
+
+    <div id="background" 
+    class="fixed inset-0 -z-10 animate-gradient"
+    style="
+    background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), 
+              radial-gradient(ellipse at 70% 60%, #ff5500 0%, rgba(255, 215, 0, 0) 90%), 
+              radial-gradient(ellipse at 30% 30%, #ff4040 0%, rgba(255, 64, 64, 0) 60%), 
+              radial-gradient(ellipse at bottom left, #8B0000 0%, rgba(139, 0, 0, 0) 70%), 
+              linear-gradient(135deg, rgba(255, 215, 0, 0) 0%, rgba(139, 0, 0, 0) 75%, #B22222 100%);
+    background-blend-mode: overlay, luminosity, multiply, saturation, color-dodge, lighten;
+    filter: blur(75px);
+    animation: gradientMove 15s ease-in-out infinite;
+    transition: background 1s ease, filter 1s ease;
+    "
+></div>
+    <!-- Top Center Title -->
+     <div class="items-start flex flex-row align-middle pt-4">
+      <div class="text-xl text-center text-white">龙编辑</div>
+      <div class="font-eb text-xs text-center text-white">Draco</div>
+     </div>
+
+    <button id="darkModeToggle" 
+     class="absolute bottom-5 right-5 p-3 rounded-full shadow-lg text-white bg-black hover:bg-gray-800"
+     aria-label="Toggle dark mode"
+     style="transition: background 1s ease, filter 1s ease;"
+    >
+     🌙
+    </button>
+
+    <div 
+      class="flex flex-col justify-center relative rounded-md w-[85vw] h-[60vh] text-md m-5 break-words whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
+      style="writing-mode: vertical-rl; text-orientation: upright; box-shadow: 0 0 30px 20px rgba(124, 124, 124, 0.2);"
+    >
+
+      <textarea
+        placeholder="始入。"
+        id="程式碼框"
+        spellcheck="false"
+        class="absolute top-0 left-0 w-[100%] h-[100%] z-10 font-字體 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
+      ></textarea><code
+          class="absolute top-0 left-0 w-[100%] h-[100%] z-0 font-字體 text-white resize-none language-wenyan overflow-x-scroll" id="尤甚"></code>
+    </div>
+
+    <div class="flex flex-row justify-center">
+      <button
+        id="編鍵"
+        class="self-start py-2 px-6 bg-[#a0522d] text-white rounded-md text-lg cursor-pointer hover:bg-[#8b4513] mt-2"
+      >
+        編譯。
+      </button>
+    </div>
+    <div class="flex flex-row justify-around max-h-3xl gap-9">
+        <!-- Translation Section Below Button -->
+      <div class="w-[55vw] h-[100%] bg-[#000000] text-white resize-y overflow-auto rounded-lg font-字體 mt-5">
+        <pre><code id="翻譯" class="language-js font-字體">輸官出。</code></pre>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+
+      <!-- Output Section Below Button -->
+      <div class="w-[25vw] h-[50vh] flex flex-col-reverse max-w-3xl resize-y bg-[#000000] overflow-auto text-white rounded-lg font-字體 mt-5 ">
+        <pre id="制台" class="language-js font-字體"><code >制台出。</code></pre>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+    </div>
+
+    <div class="my-6 text-white text-[8px] font-eb items-start flex flex-col justify-center align-middle">
+      龍編輯，以新加坡立大學學生發文言譯為翻雲。 <br>
+      Draco is a 30SCE sai kang warriors-built compiler made for wenyan-lang.
+    </div>
+    
+    <script src='https://unpkg.com/@wenyan/runtime'></script>
+    <script src='https://unpkg.com/@wenyan/core/index.min.js'></script>
+    <script type="application/wenyan" src="./译之具.wy"></script>
+    <script type="application/wenyan" src="./素同步.wy"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/wenyan-lang/highlight/wenyan.prism.js"></script>
+    <script>
+      document.addEventListener('keydown', e => {
+            if (e.ctrlKey && e.key === 'a') {
+            //e.preventDefault(); // Prevent the Save dialog to
+            // Place your code here
+            console.log('CTRL + A');
+            flashImage();
+            }
+        });
+
+        function flashImage() {
+            // Create the image element
+            const img = document.createElement('img');
+            img.src = 'images/孔子.png';
+            img.alt = 'Flashing Image';
+            img.style.position = 'fixed';
+            img.style.top = '50%';
+            img.style.left = '50%';
+            img.style.transform = 'translate(-50%, -50%)'; // Center the image
+            img.style.zIndex = '9999'; // Ensure it appears on top
+            img.style.width = '500px'; // Set image dimensions
+            img.style.height = 'auto'; // Maintain aspect ratio
+
+            // Add the image to the document body
+            document.body.appendChild(img);
+
+            // Remove the image after 5 seconds
+            setTimeout(() => {
+              img.remove();
+            }, 1500);
+          }
+    </script>
+
+    <script>
+      const background = document.getElementById("background");
+      const darkModeToggle = document.getElementById("darkModeToggle");
+
+      let isDarkMode = false; 
+
+      darkModeToggle.addEventListener("click", () => {
+        isDarkMode = !isDarkMode;
+
+        if (isDarkMode) {
+          background.style.background = `
+            radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 100%), 
+            radial-gradient(ellipse at 70% 60%, #003366 0%, rgba(0, 51, 102, 0) 90%), 
+            radial-gradient(ellipse at 30% 30%, #002244 0%, rgba(0, 34, 68, 0) 60%), 
+            radial-gradient(ellipse at bottom left, #000033 0%, rgba(0, 0, 51, 0) 70%), 
+            linear-gradient(135deg, rgba(0, 51, 102, 0) 0%, rgba(0, 0, 51, 0) 75%, #001a33 100%)`;
+          background.style.filter = "blur(75px) brightness(0.6)";
+          darkModeToggle.textContent = "☀️"; 
+        } else {
+          // Light mode styles
+          background.style.background = `
+            radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), 
+            radial-gradient(ellipse at 70% 60%, #ff5500 0%, rgba(255, 215, 0, 0) 90%), 
+            radial-gradient(ellipse at 30% 30%, #ff4040 0%, rgba(255, 64, 64, 0) 60%), 
+            radial-gradient(ellipse at bottom left, #8B0000 0%, rgba(139, 0, 0, 0) 70%), 
+            linear-gradient(135deg, rgba(255, 215, 0, 0) 0%, rgba(139, 0, 0, 0) 75%, #B22222 100%)`;
+          background.style.filter = "blur(75px)";
+          darkModeToggle.textContent = "🌙"; 
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙编辑</title>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" /> -->
+  <!-- <link rel='stylesheet' type='text/css' href='https://cdn.jsdelivr.net/gh/wenyan-lang/highlight/wenyan-light.prism.css'> -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css" rel="stylesheet" />
+
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "LXGW WenKai Mono TC", "SimSun", monospace;
+    }
+
+    textarea {
+      /* Full height, start with a small width */
+      width: 50px; 
+      height: 100%; 
+      max-width: 100%; /* Maximum expansion width */
+      resize: none;
+      border: none;
+      background-color: transparent;
+      font-size: 20px;
+      line-height: 2.0rem;
+
+      /* Vertical writing settings */
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      color: #8b4513;
+      transition: width 0.3s ease; /* Smooth expansion */
+    }
+
+  </style>
+</head>
+
+<body class="bg-[#1a1a1a] text-[#8b4513] p-5">
+
+  <div class="text-xl text-center mb-4">
+    龙
+  </div>
+
+  <div class="relative flex items-start border-2 border-[#a0522d] bg-cover shadow-md rounded-lg w-800 h-[1000px] overflow-hidden writing-mode-vertical-rl text-orientation-upright">
+    <textarea id="程式碼框" 
+              spellcheck="false" 
+              placeholder="始入。" 
+              class="w-full h-full resize-none border-none bg-transparent text-[20px] leading-7 p-2 writing-mode-vertical-rl text-orientation-upright overflow-y-auto outline-none placeholder-[#8b4513] text-[#8b4513]">
+    </textarea>
+  </div>
+  
+  <button id="編鍵" 
+          class="mt-5 py-2 px-5 bg-[#a0522d] text-white rounded-md text-lg cursor-pointer sticky bottom-5 hover:bg-[#8b4513]">
+    編譯。
+  </button>
+
+  <!-- <div class="mt-5 bg-[#8b4513] p-3 rounded-lg"> -->
+    <pre><code id="翻译" class="language-js">输官出。</code></pre>
+  <!-- </div> -->
+
+  <script>
+    function resizeScrollContainer(textarea) {
+        const container = document.getElementById('scroll-container');
+        const lines = textarea.value.split('\n');
+        const lineCount = lines.length;
+
+        const minWidth = 60;
+        container.style.width = `${Math.min(minWidth, lineCount * 2)}vw`;
+    }
+
+    window.addEventListener('load', function() {
+        const textarea = document.getElementById('scroll-container');
+        textarea.addEventListener('input', () => resizeScrollContainer(textarea));
+        resizeScrollContainer(textarea); // Initial resize
+
+        textarea.addEventListener('wheel', function(e) {
+            if (e.deltaY !== 0) {
+                e.preventDefault(); // Prevent vertical scrolling
+                this.scrollLeft += e.deltaY; // Scroll horizontally instead
+            }
+        });
+    });
+
+    function updateGrid() {
+        const textarea = document.getElementById('程式碼框');
+        const charWidth = 20; // Approximate width per character
+
+        textarea.style.backgroundImage = `
+            linear-gradient(to right, #8b4513 1px, transparent 1px)
+        `;
+
+        textarea.style.backgroundSize = `${charWidth}px 100%`; // Width matches character width
+    }
+
+    window.addEventListener('load', updateGrid);
+    window.addEventListener('resize', updateGrid);
+
+    function synchronizeGridWithScroll() {
+        const textarea = document.getElementById('程式碼框');
+
+        textarea.addEventListener('scroll', () => {
+            const scrollLeft = textarea.scrollLeft; // Horizontal scroll
+            textarea.style.backgroundPosition = `${-scrollLeft}px 0px`; // Move vertical lines with scroll
+        });
+
+        // Initialize background position
+        textarea.style.backgroundPosition = '0 0';
+    }
+
+    window.addEventListener('load', synchronizeGridWithScroll);
+  </script>
+
+  <script>
+      function update(text) {
+        let result_element = document.querySelector("#尤甚-词云");
+        // Handle final newlines
+        if (text[text.length - 1] == "\n") {
+          text += " ";
+        }
+        // Update code
+        result_element.innerHTML = text
+          .replace(new RegExp("&", "g"), "&amp;")
+          .replace(new RegExp("<", "g"), "&lt;");
+        Prism.highlightElement(result_element);
+      }
+
+      function sync_scroll(element) {
+        let result_element = document.querySelector("#尤甚");
+        result_element.scrollTop = element.scrollTop;
+        result_element.scrollLeft = element.scrollLeft;
+      }
+
+      function check_tab(element, event) {
+        let code = element.value;
+        if (event.key == "Tab") {
+          event.preventDefault();
+          let before_tab = code.slice(0, element.selectionStart);
+          let after_tab = code.slice(element.selectionEnd, element.value.length);
+          let cursor_pos = element.selectionStart + 1;
+          element.value = before_tab + "\t" + after_tab;
+          element.selectionStart = cursor_pos;
+          element.selectionEnd = cursor_pos;
+          update(element.value);
+        }
+      }
+    </script>
+
+  <script src='https://unpkg.com/@wenyan/runtime'></script>
+  <script src='https://unpkg.com/@wenyan/core/index.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.15.1/beautify.min.js"></script>
+  <script type="application/wenyan" src="./主.wy"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src='https://cdn.jsdelivr.net/gh/wenyan-lang/highlight/wenyan.prism.js'></script>
+</body>
+</html>
