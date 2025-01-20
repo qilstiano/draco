@@ -29,16 +29,17 @@ We built Draco using **Wenyan-lang itself, Javascript, HTML and CSS**. Our goal 
 Creating Draco wasn't without its hurdles. Some of the key challenges we tackled include:
 
 - **Text Direction Handling:** Adapting to top-down, right-to-left text orientation posed significant UI challenges, requiring custom solutions beyond existing libraries.
-- **Syntax Highlighting:** Initially, we wanted to create our own solution but opted for Prism.js for efficiency.
+- **Syntax Highlighting:** Initially, we wanted to create our own solution but we managed hacky ways that work instead, tapping on Prism.js for efficiency.
 - **Cultural Exploration:** Ensuring authenticity while making Draco user-friendly for a global audience.
 
 ## What We Learned
 
 Throughout this journey, we gained:
 
-- A deeper understanding of styling without relying on pre-built libraries.
-- Insights into Wenyan-lang and its historical significance.
-- Stronger problem-solving skills and teamwork during late-night coding marathons.
+- A deeper understanding of engineering an app without relying on pre-built libraries and components.
+- Insights into Wenyan-lang.
+- Our first hackathon experience together!
+- A stronger tolerance for an absence of sleep and staring at a screen for extended hours.
 
 ## Installation and Usage
 
@@ -66,10 +67,11 @@ We welcome contributions! If you have suggestions or improvements, feel free to:
 ## Acknowledgments
 A huge shout-out to:
 
-- The Wenyan-lang community for their inspiring work.
-- Our friends and mentors for their constant support.
+- The Wenyan-lang community for their inspiring work in keeping traditional Chinese culture alive through code.
+- Our friends and hackathon buddies for their support and a wholesome experience.
 - NUS Hackers for the endless supply of Milo and choosing Draco for Hack and Roll 2025's Top 8 Projects. 😄
 
 
-🔗 Check out Wenyan-lang: GitHub Repo
+🔗 Check out Wenyan-lang: https://github.com/wenyan-lang/wenyan
 🌏 Project Website: https://qilstiano.github.io/draco/
+
