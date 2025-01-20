@@ -16,10 +16,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <div id="aboutPopup" class="hidden fixed inset-0 bg-black font-戊乙 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+  <div id="aboutPopup" class="hidden fixed inset-0 bg-black font-戊乙 bg-opacity-10 backdrop-blur-sm flex flex-col items-center justify-center z-50">
     <div class="text-black p-6 rounded-lg shadow-lg w-[90%] max-w-3xl h-[90vh] max-h-[90vh] overflow-y-auto relative">
-      <button id="closePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-      <div class="items-center p-8 rounded-lg shadow-lg">
+
+      <div class="items-center p-8 rounded-lg shadow-lg relative">
+        <button id="closePopup" class="fixed top-8 right-8 w-10 h-10 flex items-center justify-center text-orange-500 hover:text-white-400 rounded-full bg-gray-800 bg-opacity-50 text-2xl">&times;</button>
         <h1 class="text-3xl font-bold text-center mb-6 text-white">About Draco</h1>
         
         <p class="mb-4 text-white">We are three friends from different cultural backgrounds—Jing Heng, A'qil, and Sri. Despite our differences, our love for computers and culture brought us together to create Draco at NUS Hackers' Hack and Roll 2025, an IDE for <a href="https://github.com/wenyan-lang/wenyan" class="text-orange-400 hover:underline">wenyan-lang</a>, a traditional Chinese programming language. Fun fact: we figured, screw it, let's build it in wenyan too as much as possible. So lots of backend processes run on the very code you see on your IDE! We're really proud to say that Draco managed to clinch the grand Top 8 prize at Hack and Roll!</p>
@@ -70,7 +71,6 @@
   </script>
 
   <body id="ide" class="bg-[#1a1a1a] font-字體 flex flex-col items-center justify-center min-h-screen">
-
     <div id="background" 
     class="fixed inset-0 -z-10 animate-gradient"
     style="
@@ -83,7 +83,7 @@
     filter: blur(75px);
     transition: background 1s ease, filter 1s ease;
     "
-></div>
+    ></div>
 
     <!-- Top Center Title -->
      <div class="items-start flex flex-row align-middle pt-4">
