@@ -16,7 +16,60 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body class="bg-[#1a1a1a] font-字體 flex flex-col items-center justify-center min-h-screen">
+  <div id="aboutPopup" class="hidden fixed inset-0 bg-black font-戊乙 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="text-black p-6 rounded-lg shadow-lg w-[90%] max-w-3xl h-[90vh] max-h-[90vh] overflow-y-auto relative">
+      <button id="closePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+      <div class="items-center p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center mb-6 text-white">About Draco</h1>
+        
+        <p class="mb-4 text-white">We are three friends from different cultural backgrounds—Jing Heng, A'qil, and Sri. Despite our differences, our love for computers and culture brought us together to create Draco at NUS Hackers' Hack and Roll 2025, an IDE for <a href="https://github.com/wenyan-lang/wenyan" class="text-orange-400 hover:underline">wenyan-lang</a>, a traditional Chinese programming language. Fun fact: we figured, screw it, let's build it in wenyan too as much as possible. So lots of backend processes run on the very code you see on your IDE! We're really proud to say that Draco managed to clinch the grand Top 8 prize at Hack and Roll!</p>
+        
+        <h2 class="text-2xl font-semibold mt-4 text-white">What Draco Does</h2>
+        <ul class="list-disc list-inside mb-4 text-white">
+          <li>A dedicated IDE for wenyan-lang programming.</li>
+          <li>Immersive traditional Chinese UI design.</li>
+          <li>Top-down, right-to-left text orientation.</li>
+          <li>Syntax highlighting with dynamic and static features.</li>
+          <li>Transpilation of wenyan-lang to Javascript as well as terminal output.</li>
+          <li>Light and dark mode options.</li>
+          <li>Fun Easter egg when pressing Ctrl+A!</li>
+        </ul>
+    
+        <h2 class="text-2xl font-semibold mt-4 text-white">How We Built It</h2>
+        <p class="mb-4 text-white">Most of the front-end elements run on basic HTML and CSS, while for the transpiling and running of code we used wenyan-lang. Adapting to the vertical writing style and handling syntax highlighting were key challenges, but our perseverance and teamwork helped us overcome them.</p>
+        
+        <h2 class="text-2xl font-semibold mt-4 text-white">Challenges We Faced</h2>
+        <p class="mb-4 text-white">Implementing the unique writing direction and customizing the UI required significant effort as we could not find libraries or components which directly supported what we needed. We also struggled with syntax highlighting and eventually chose Prism.js for efficiency.</p>
+    
+        <h2 class="text-2xl font-semibold mt-4 text-white">What We Gained</h2>
+        <p class="mb-4 text-white">We gained a deeper understanding of UI design and programming in a new language which was foreign to us all - forcing us to go back to programming basics. Also, perseverance. Lots of perseverance.</p>
+    
+        <a href="https://github.com/qilstiano/hackandroll2025" target="_blank" style="display: inline-flex; align-items: center; padding: 10px 20px; background-color: #24292e; color: white; text-decoration: none; border-radius: 6px; font-family: Arial, sans-serif;">
+          <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" style="fill: white; margin-right: 8px;">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+          Draco on Github!
+        </a>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="fixed bottom-11 right-4 flex flex-col gap-2">
+    <button id="infoButton" class="p-2 rounded-full shadow-lg text-white bg-black hover:bg-gray-800" aria-label="Need help">ⓘ</button>
+  </div>
+
+  <script>
+    document.getElementById('infoButton').addEventListener('click', () => {
+      document.getElementById('aboutPopup').classList.remove('hidden');
+    });
+
+    document.getElementById('closePopup').addEventListener('click', () => {
+      document.getElementById('aboutPopup').classList.add('hidden');
+    });
+  </script>
+
+  <body id="ide" class="bg-[#1a1a1a] font-字體 flex flex-col items-center justify-center min-h-screen">
 
     <div id="background" 
     class="fixed inset-0 -z-10 animate-gradient"
@@ -28,39 +81,62 @@
               linear-gradient(135deg, rgba(255, 215, 0, 0) 0%, rgba(139, 0, 0, 0) 75%, #B22222 100%);
     background-blend-mode: overlay, luminosity, multiply, saturation, color-dodge, lighten;
     filter: blur(75px);
-    animation: gradientMove 15s ease-in-out infinite;
     transition: background 1s ease, filter 1s ease;
     "
 ></div>
+
     <!-- Top Center Title -->
      <div class="items-start flex flex-row align-middle pt-4">
       <div class="text-xl text-center text-white">龙编辑</div>
       <div class="font-戊乙 text-xs text-center text-white">Draco</div>
      </div>
-
-    <button id="darkModeToggle" 
-     class="absolute bottom-5 right-5 p-3 rounded-full shadow-lg text-white bg-black hover:bg-gray-800"
-     aria-label="Toggle dark mode"
-     style="transition: background 1s ease, filter 1s ease;"
-    >
-     🌙
-    </button>
+     
+    <!-- Dark Mode and Help Tab-->
+    <div id="button-container" class="fixed bottom-2 right-4 flex flex-col gap-2">
+      <button id="darkModeToggle" 
+        class="p-2 rounded-full shadow-lg text-white text-xs bg-black hover:bg-gray-800"
+        aria-label="Toggle dark mode"
+        style="transition: background 1s ease, filter 1s ease;"
+      >
+        🌙
+      </button>
+    
+      <!-- <button id="infoButton" 
+        class="p-2 rounded-full shadow-lg text-white text-xs bg-black hover:bg-gray-800"
+        aria-label="Need help"
+        style="transition: background 1s ease, filter 1s ease;"
+      >
+        ⓘ
+      </button> -->
+    </div>
 
     <div 
-      class="flex flex-col justify-center relative leading-[30px] rounded-md w-[85vw] h-[60vh] text-md m-5 break-words whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
-      style="writing-mode: vertical-rl; text-orientation: upright; box-shadow: 0 0 30px 20px rgba(124, 124, 124, 0.2);"
-    >
-
-      <textarea
-        placeholder="始入。"
-        id="程式碼框"
-        spellcheck="false"
-        class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-10 font-字體 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
-      ></textarea><code
-          class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-0 font-字體 text-white resize-none language-wenyan overflow-x-scroll"
-          id="尤甚"
-          style="background-image: linear-gradient(to left, #8b4513 1px, transparent 1px); background-size:30px; background-position: right; background-origin: content-box;"></code>
-    </div>
+    class="flex flex-col justify-center relative leading-[30px] rounded-md w-[85vw] h-[60vh] text-md m-5 break-words border-2 border-white whitespace-break-spaces line-numbers overflow-hidden inline-block align-middle"
+    style="writing-mode: vertical-rl; text-orientation: upright; box-shadow: 0 0 30px 20px rgba(124, 124, 124, 0.2);"
+  >
+    <textarea
+      placeholder="始入。"
+      id="程式碼框"
+      spellcheck="false"
+      class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-10 font-字體 caret-white bg-transparent text-transparent resize-none overflow-x-scroll"
+    ></textarea>
+    <code
+      class="absolute top-0 left-0 leading-[30px] w-[100%] h-[100%] z-0 font-字體 text-white resize-none language-wenyan overflow-x-scroll"
+      id="尤甚"
+      style="
+      background-image: 
+        linear-gradient(to left, #ffffff3a 1px, transparent 1px),
+        url('');
+      background-size: 30px, 200%;
+      background-position: right, bottom;
+      opacity: normal, 50%;
+      background-blend-mode: normal, screen;
+      background-origin: content-box, content-box;
+      background-repeat: repeat, no-repeat;
+    "
+    ></code>
+  </div>
+  
 
     <div class="flex flex-row justify-center">
       <button
@@ -88,21 +164,6 @@
       龍編輯，以新加坡立大學學生發文言譯為翻雲。 <br>
       Draco is a 30SCE sai kang warriors-built compiler made for wenyan-lang.
     </div>
-    <script>
-  
-      function synchronizeGridWithScroll() {
-        const textarea = document.getElementById('尤甚');
-        
-        textarea.addEventListener('scroll', () => {
-          const scrollLeft = textarea.scrollLeft;
-          textarea.style.backgroundPosition = `${-scrollLeft}px 0px`;
-        });
-      }
-  
-      window.addEventListener('load', () => {
-        synchronizeGridWithScroll();
-      });
-    </script>
     
     <script src='https://unpkg.com/@wenyan/runtime'></script>
     <script src='https://unpkg.com/@wenyan/core/index.min.js'></script>
@@ -165,7 +226,7 @@
           background.style.filter = "blur(75px) brightness(0.6)";
           darkModeToggle.textContent = "☀️"; 
         } else {
-          // Light mode styles
+          
           background.style.background = `
             radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), 
             radial-gradient(ellipse at 70% 60%, #ff5500 0%, rgba(255, 215, 0, 0) 90%), 

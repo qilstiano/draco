@@ -10,6 +10,34 @@
 	tab-size: 2;
   }  
 
+  /* For Webkit browsers (Chrome, Safari, newer versions of Edge) */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: #84848400;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3f3f3f;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  border-radius: 8px;
+  scrollbar-color: #888 #84848400;
+}
+
+
+
   @keyframes gradientMove {
     0% {
       transform: translate(0%, 50%);
