@@ -207,6 +207,22 @@
     </script>
 
     <script>
+
+      function synchronizeGridWithScroll() {
+        const codeblock = document.getElementById('尤甚');
+        
+        codeblock.addEventListener('scroll', () => {
+          const scrollLeft = codeblock.scrollLeft;
+          codeblock.style.backgroundPosition = `${-scrollLeft}px 0px`;
+        });
+      }
+  
+      window.addEventListener('load', () => {
+        synchronizeGridWithScroll();
+      });
+    </script>
+
+    <script>
       const background = document.getElementById("background");
       const darkModeToggle = document.getElementById("darkModeToggle");
 
