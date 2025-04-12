@@ -1,8 +1,8 @@
-# Draco - A Wenyan-lang IDE | Winner of NUS Hack and Roll 2025 Top 8! 🏆
+# Draco - A Wenyan-lang IDE
 
 ## About Draco
 
-**Draco** is an immersive IDE designed specifically for **[Wenyan-lang](https://github.com/wenyan-lang/wenyan)**, a traditional Chinese programming language. Created by three friends from diverse cultural backgrounds—our goal was to embrace and celebrate this unique culture through code.
+**Draco** is an immersive IDE designed specifically for **[Wenyan-lang](https://github.com/wenyan-lang/wenyan)**, a traditional Chinese programming language. Created by three friends from diverse cultural backgrounds—our goal was to embrace and celebrate this unique culture through code. Draco is also a proud Winner of NUS Hack and Roll 2025 Top 8 prize! 🏆
 
 ## Features
 
