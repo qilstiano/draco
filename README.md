@@ -1,4 +1,4 @@
-# Draco - A Wenyan-lang IDE | Winner of NUS Hack and Roll 2025! 🏆
+# Draco - A Wenyan-lang IDE | Winner of NUS Hack and Roll 2025 Top 8! 🏆
 
 ## About Draco
 
